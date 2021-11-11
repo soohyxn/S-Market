@@ -1,7 +1,12 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 
-def food_list(request):
-    return render(request, 'foods/food_list.html')
+from foods.models import Food
 
-def food_detail(request):
-    return render(request, 'foods/food_detail.html')
+
+class FoodList(ListView):
+    model = Food
+    ordering = '-sales'
+
+class FoodDetail(DetailView):
+    model = Food

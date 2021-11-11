@@ -8,14 +8,13 @@
 </header>
 
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">S-Market</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">BEST</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/food/">BEST</a></li>
                 <li class="nav-item"><a class="nav-link" href="#!">채소/과일/수산</a></li>
                 <li class="nav-item"><a class="nav-link" href="#!">정육/계란</a></li>
                 <li class="nav-item"><a class="nav-link" href="#!">국/반찬/메인요리</a></li>
@@ -23,6 +22,26 @@
                 <li class="nav-item"><a class="nav-link" href="#!">음료/우유/커피</a></li>
                 <li class="nav-item"><a class="nav-link" href="#!">간식/과자</a></li>
                 <li class="nav-item"><a class="nav-link" href="#!">베이커리/치즈</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        전체 카테고리
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">채소/과일/수산</a>
+                        <a class="dropdown-item" href="#">정육/계란</a>
+                        <a class="dropdown-item" href="#">국/반찬/메인요리</a>
+                        <a class="dropdown-item" href="#">정육/계란</a>
+                        <a class="dropdown-item" href="#">샐러드/간편식</a>
+                        <a class="dropdown-item" href="#">음료/우유/커피</a>
+                        <a class="dropdown-item" href="#">간식/과자</a>
+                        <a class="dropdown-item" href="#">베이커리/치즈</a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#loginModal">로그인</button>
+                </li>
             </ul>
         </div>
     </div>
