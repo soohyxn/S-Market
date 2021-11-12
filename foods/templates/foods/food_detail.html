@@ -15,8 +15,12 @@
                         </a>
                     </div>
                     <div class="col-md-7">
+                        <!-- Product category -->
+                        {% if food.category %}
+                            <button type="button" class="btn btn-sm" style="background-color: #57137b; color: white;">{{ food.category }}</button>
+                        {% endif %}
                         <!-- Product name -->
-                        <h3 class="display-5 fw-bolder">
+                        <h3 class="display-5 fw-bolder mt-3">
                             {% if food.brand %} [{{ food.brand }}] {% endif %}
                             {{ food.name }}
                         </h3>
@@ -25,7 +29,16 @@
                             <h3>{{ food.price }}원</h3>
                         </div>
                         <!-- Product content -->
-                        <p class="lead">{{ food.get_content_markdown | safe }}</p>
+                        <p class="lead">{{ food.get_content_markdown | safe }}</p><hr/>
+                        <!-- Product manufacturer -->
+                        {% if food.manufacturer %}
+                            <p style="font-weight: bold;">제조사</p>
+                            <p>{{ food.manufacturer.name }} / {{ food.manufacturer.address }} / {{ food.manufacturer.contact }}</p>
+                            {% if food.manufacturer.domain %}
+                                <i class="fas fa-link" style="color: #57137b;"></i>
+                                <a href="{{ food.manufacturer.domain }}">&nbsp;{{ food.manufacturer.domain }}</a>
+                            {% endif %}
+                        {% endif %}
                         <div class="d-flex mt-5">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
                             <button class="btn btn-outline-dark flex-shrink-0 ml-3" type="button">
