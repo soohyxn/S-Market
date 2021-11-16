@@ -1,5 +1,18 @@
 {% extends 'foods/base.html' %}
 {% block main_area %}
+        <!-- Product Create -->
+        {% if user.is_authenticated %}
+            {% if user.is_staff or user.is_superuser %}
+                <div class="container px-5 my-4">
+                    <a class="btn float-right" href="/food/create_food/" style="background-color: #57137b; color: white;">
+                        <i class="fas fa-pen"></i>&nbsp;상품 등록
+                    </a>
+                </div>
+                <br>
+            {% endif %}
+        {% endif %}
+
+        <!-- Product Category -->
         <div class="mt-5" align="center">
             {% if category %}
                 <h1>{{ category }}</h1>
@@ -7,6 +20,7 @@
                 <h1>전체 상품</h1>
             {% endif %}
         </div>
+
         <!-- Product list -->
         <div class="py-2">
             <div class="container px-4 px-lg-5 mt-5">
@@ -32,7 +46,7 @@
                                 <!-- Product price-->
                                 <h5>{{ f.price }}원</h5>
                                 <!-- Product content -->
-                                <p>{{ f.get_content_markdown | truncatechars_html:9 | safe }}</p>
+                                <p>{{ f.get_content_markdown | truncatewords_html:5 | safe }}</p>
                             </div>
                         </div>
                     </div>

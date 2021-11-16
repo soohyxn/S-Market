@@ -20,13 +20,9 @@
                         <i class="fas fa-bars"></i>&nbsp;&nbsp;카테고리
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/food/category/채소과일수산">채소/과일/수산</a>
-                        <a class="dropdown-item" href="/food/category/정육계란">정육/계란</a>
-                        <a class="dropdown-item" href="/food/category/국반찬메인요리">국/반찬/메인요리</a>
-                        <a class="dropdown-item" href="/food/category/샐러드간편식">샐러드/간편식</a>
-                        <a class="dropdown-item" href="/food/category/음료우유커피">음료/우유/커피</a>
-                        <a class="dropdown-item" href="/food/category/간식과자">간식/과자</a>
-                        <a class="dropdown-item" href="/food/category/베이커리치즈">베이커리/치즈</a>
+                        {% for c in categories %}
+                            <a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                        {% endfor %}
                     </div>
                 </li>
             </ul>
