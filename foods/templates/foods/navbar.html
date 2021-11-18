@@ -1,3 +1,5 @@
+{% load socialaccount %}
+
 <!-- Header-->
 <header class="py-4">
     <div>
@@ -13,7 +15,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li>
                 <li class="nav-item"><a class="nav-link" href="/food/">전체 상품</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -25,12 +27,61 @@
                         {% endfor %}
                     </div>
                 </li>
+                <li class="nav-item"><a class="nav-link" href="#">마이페이지</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">회사 소개</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <button type="button" class="btn" style="background-color: #57137b; color: white;" data-toggle="modal" data-target="#loginModal">로그인</button>
-                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #57137b;">
+                            {{ user.username }}님
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/accounts/logout/">로그아웃</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a role="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" style="background-color: #57137b; color: white;">
+                            로그인
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
 </nav>
+
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel"><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;로그인</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="{% provider_login_url 'google' %}">
+                            <i class="fab fa-google"></i>&nbsp;&nbsp;Log in with Google
+                        </a>
+                        <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/accounts/login/">
+                            <i class="far fa-envelope"></i>&nbsp;&nbsp;Log in with E-mail
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/accounts/signup/">
+                            <i class="far fa-envelope"></i>&nbsp;&nbsp;Sign up with E-mail
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" style="background-color: #57137b; color: white;" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
