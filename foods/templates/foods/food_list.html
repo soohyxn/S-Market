@@ -12,10 +12,12 @@
             {% endif %}
         {% endif %}
 
-        <!-- Product Category -->
+        <!-- Products Info -->
         <div class="mt-5" align="center">
             {% if category %}
                 <h1>{{ category }}</h1>
+            {% elif search_info %}
+                <h1>{{ search_info }}</h1>
             {% else %}
                 <h1>전체 상품</h1>
             {% endif %}
@@ -24,7 +26,9 @@
         <!-- Product list -->
         <div class="py-2">
             <div class="container px-4 px-lg-5 mt-5">
-                <div class="mb-3">총 {{ food_list.count }}개</div>
+                <div class="mb-3">
+                    총 {{ food_list.count }}개
+                </div>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
                     {% for f in food_list %}
                     <div class="col mb-5">

@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from foods.models import Food, Category
 from .forms import CommentForm
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 def new_comment(request, pk):
     if request.user.is_authenticated:
@@ -68,6 +69,22 @@ class FoodDetail(DetailView):
         context = super(FoodDetail, self).get_context_data()
         context['categories'] = Category.objects.all()
         context['comment_form'] = CommentForm
+        return context
+
+class FoodSearch(FoodList):
+    paginate_by = None
+
+    def get_queryset(self):
+        q = self.kwargs['q']
+        food_list = Food.objects.filter(
+            Q(name__contains=q) | Q(content__contains=q) | Q(brand__contains=q)
+        ).distinct()
+        return food_list
+
+    def get_context_data(self, **kwargs):
+        context = super(FoodSearch, self).get_context_data()
+        q = self.kwargs['q']
+        context['search_info'] = f'검색결과: {q}'
         return context
 
 def category_page(request, slug):
