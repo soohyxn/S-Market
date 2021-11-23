@@ -11,7 +11,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return f'/food/category/{self.slug}/'
+        return f'/foods/category/{self.slug}/'
 
     class Meta:
         verbose_name_plural = 'Categories'
@@ -42,7 +42,7 @@ class Food(models.Model):
         return f'[{self.pk}] {self.name}'
 
     def get_absolute_url(self):
-        return f'/food/{self.pk}/'
+        return f'/foods/{self.pk}/'
 
     def get_content_markdown(self):
         return markdown(self.content)
@@ -61,3 +61,9 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return f'{self.food.get_absolute_url()}#comment-{self.pk}'
+
+    def get_avatar_url(self):
+        if self.author.socialaccount_set.exists():
+            return self.author.socialaccount_set.first().get_avatar_url()
+        else:
+            return 'https://doitdjango.com/avatar/id/370/78f08c0876b31d05/svg/{self.author.email}/'

@@ -6,7 +6,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li>
-                <li class="nav-item"><a class="nav-link" href="/food/">전체 상품</a></li>
+                <li class="nav-item"><a class="nav-link" href="/foods/">전체 상품</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-bars"></i>&nbsp;&nbsp;카테고리
@@ -24,6 +24,11 @@
                 {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #57137b;">
+                            {% if user.socialaccount_set.all.0.get_avatar_url %}
+                                <img class="rounded-circle" width="25px" src="{{ user.socialaccount_set.all.0.get_avatar_url }}">
+                            {% else %}
+                                <img class="rounded-circle" width="25px" src="https://doitdjango.com/avatar/id/370/78f08c0876b31d05/svg/{{ user.email }}/">
+                            {% endif %}
                             {{ user.username }}님
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

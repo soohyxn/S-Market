@@ -4,7 +4,7 @@
         {% if user.is_authenticated %}
             {% if user.is_staff or user.is_superuser %}
                 <div class="container px-5 my-4">
-                    <a class="btn float-right" href="/food/create_food/" style="background-color: #57137b; color: white;">
+                    <a class="btn float-right" href="/foods/create_food/" style="background-color: #57137b; color: white;">
                         <i class="fas fa-pen"></i>&nbsp;상품 등록
                     </a>
                 </div>
@@ -26,8 +26,13 @@
         <!-- Product list -->
         <div class="py-2">
             <div class="container px-4 px-lg-5 mt-5">
+                <!-- Product count -->
                 <div class="mb-3">
-                    총 {{ food_list.count }}개
+                    {% if category or search_info %}
+                        총 {{ food_list.count }}개
+                    {% elif food_all_count %}
+                        총 {{ food_all_count }}개
+                    {% endif %}
                 </div>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
                     {% for f in food_list %}

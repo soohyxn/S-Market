@@ -5,7 +5,7 @@
         {% if user.is_authenticated %}
             {% if user.is_staff or user.is_superuser %}
                 <div class="container px-5 my-4">
-                    <a class="btn float-right" href="/food/update_food/{{ food.pk }}" style="background-color: #57137b; color: white;">
+                    <a class="btn float-right" href="/foods/update_food/{{ food.pk }}" style="background-color: #57137b; color: white;">
                         <i class="fas fa-pen"></i>&nbsp;상품 수정
                     </a>
                 </div>
@@ -84,7 +84,7 @@
                     {% if food.comment_set.exists %}
                     {% for comment in food.comment_set.all %}
                         <div class="d-flex">
-                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                            <div class="flex-shrink-0"><img class="rounded-circle" src="{{ comment.get_avatar_url }}" alt="{{ comment.author }}" width="50px" /></div>
                             <div class="ms-3">
                                 <div class="container fw-bold">
                                     {{ comment.author.username }}&nbsp;&nbsp;
