@@ -12,6 +12,7 @@
                         <i class="fas fa-bars"></i>&nbsp;&nbsp;카테고리
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <!-- Category -->
                         {% for c in categories %}
                             <a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
                         {% endfor %}
