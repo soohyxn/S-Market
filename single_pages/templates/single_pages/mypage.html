@@ -1,0 +1,45 @@
+{% extends 'foods/base.html' %}
+{% load static %}
+{% block main_area %}
+    <!-- User Profile -->
+    <div class="py-4">
+        <div class="container px-4 px-lg-5 my-4">
+            <div class="row gx-4 gx-lg-5 align-items-center">
+                <div class="col-lg-2">
+                    {% if user.socialaccount_set.all.0.get_avatar_url %}
+                    <img class="rounded-circle" width="150px" src="{{ user.socialaccount_set.all.0.get_avatar_url }}">
+                    {% else %}
+                    <img class="rounded-circle" width="150px" src="https://doitdjango.com/avatar/id/370/78f08c0876b31d05/svg/{{ user.username }}/">
+                    {% endif %}
+                </div>
+                <div class="col-lg-8">
+                    <h2>{{ user.username }}님</h2>
+                    {{ user.email }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comment section-->
+    <div class="py-4 bg-light">
+        <div class="container px-4 px-lg-5 mt-2">
+            <div class="card-body">
+                <h2>작성한 댓글</h2><br>
+                {% if user.comment_set.exists %}
+                {% for comment in user.comment_set.all %}
+                <div class="d-flex" onclick="location.href='{{ comment.get_absolute_url }}'">
+                    <div class="flex-shrink-0"><img class="rounded-circle" src="{{ comment.get_avatar_url }}" alt="{{ comment.author }}" width="50px" /></div>
+                    <div class="ms-3">
+                        <div class="container fw-bold">
+                            {{ comment.author.username }}&nbsp;&nbsp;
+                            <small class="text-muted">{{ comment.created_at | date:"Y-m-d h:m:s"}}</small><br>
+                            {{ comment.content | linebreaks }}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

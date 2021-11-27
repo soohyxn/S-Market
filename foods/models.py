@@ -60,10 +60,10 @@ class Comment(models.Model):
         return f'{self.author}::{self.content}'
 
     def get_absolute_url(self):
-        return f'{self.food.get_absolute_url()}#comment-{self.pk}'
+        return self.food.get_absolute_url()
 
     def get_avatar_url(self):
         if self.author.socialaccount_set.exists():
             return self.author.socialaccount_set.first().get_avatar_url()
         else:
-            return 'https://doitdjango.com/avatar/id/370/78f08c0876b31d05/svg/{self.author.email}/'
+            return 'https://doitdjango.com/avatar/id/370/78f08c0876b31d05/svg/{self.author.username}/'

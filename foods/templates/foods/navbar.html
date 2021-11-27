@@ -18,7 +18,9 @@
                         {% endfor %}
                     </div>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="#">마이페이지</a></li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="/mypage/">마이페이지</a></li>
+                {% endif %}
                 <li class="nav-item"><a class="nav-link" href="#">회사 소개</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -28,7 +30,7 @@
                             {% if user.socialaccount_set.all.0.get_avatar_url %}
                                 <img class="rounded-circle" width="25px" src="{{ user.socialaccount_set.all.0.get_avatar_url }}">
                             {% else %}
-                                <img class="rounded-circle" width="25px" src="https://doitdjango.com/avatar/id/370/78f08c0876b31d05/svg/{{ user.email }}/">
+                                <img class="rounded-circle" width="25px" src="https://doitdjango.com/avatar/id/370/78f08c0876b31d05/svg/{{ user.username }}/">
                             {% endif %}
                             {{ user.username }}님
                         </a>
