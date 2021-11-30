@@ -5,13 +5,14 @@
         <title>S-Market</title>
         <link href="{% static 'foods/bootstrap/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="screen">
         <script src="https://kit.fontawesome.com/eec94c680e.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     </head>
     <body>
         <!-- Header-->
         <header class="py-5">
             <div>
-                <div class="text-center" style="color: #57137b; font-style: italic;">
-                    <h1>S-Market</h1>
+                <div class="text-center">
+                    <h1><a href="/" class="text-decoration-none" style="color: #142DB2; font-style: italic;">S-Market</a></h1>
                 </div>
             </div>
         </header>
@@ -21,7 +22,7 @@
             <div class="container px-4 px-lg-5">
                 <div class="form-inline my-2 my-lg-0 float-right">
                     <input class="form-control mr-sm-2" id="search-input" type="text" placeholder="검색어를 입력하세요." aria-label="검색어를 입력하세요." aria-describedby="button-search">
-                    <button class="btn my-2 my-sm-0" id="button-search" type="button" onclick="searchFood()" style="background-color: #57137b; color: white;">검색</button>
+                    <button class="btn my-2 my-sm-0" id="button-search" type="button" onclick="searchFood()" style="background-color: #142DB2; color: white;">검색</button>
                 </div>
             </div>
         </div>

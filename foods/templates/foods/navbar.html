@@ -2,7 +2,10 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
     <div class="container px-4 px-lg-5">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <a class="navbar-brand" href="/">S-Market</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li>
@@ -21,7 +24,7 @@
                 {% if user.is_authenticated %}
                     <li class="nav-item"><a class="nav-link" href="/mypage/">마이페이지</a></li>
                 {% endif %}
-                <li class="nav-item"><a class="nav-link" href="#">회사 소개</a></li>
+                <li class="nav-item"><a class="nav-link" href="/company/">회사 소개</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
@@ -40,7 +43,7 @@
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a role="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" style="background-color: #57137b; color: white;">
+                        <a role="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" style="background-color:	#142DB2; color: white;">
                             로그인
                         </a>
                     </li>
@@ -64,21 +67,21 @@
                 <div class="row">
                     <div class="col-md-6">
                         <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="{% provider_login_url 'google' %}">
-                            <i class="fab fa-google"></i>&nbsp;&nbsp;Log in with Google
+                            <i class="fab fa-google"></i>&nbsp;&nbsp;Google로 로그인
                         </a>
                         <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/accounts/login/">
-                            <i class="far fa-envelope"></i>&nbsp;&nbsp;Log in with E-mail
+                            <i class="far fa-envelope"></i>&nbsp;&nbsp;E-mail로 로그인
                         </a>
                     </div>
                     <div class="col-md-6">
                         <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/accounts/signup/">
-                            <i class="far fa-envelope"></i>&nbsp;&nbsp;Sign up with E-mail
+                            <i class="far fa-envelope"></i>&nbsp;&nbsp;E-mail로 회원가입
                         </a>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn" style="background-color: #57137b; color: white;" data-dismiss="modal">닫기</button>
+                <button type="button" class="btn" style="background-color: #142DB2; color: white;" data-dismiss="modal">닫기</button>
             </div>
         </div>
     </div>

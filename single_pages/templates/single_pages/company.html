@@ -1,0 +1,175 @@
+{% extends 'foods/base.html' %}
+{% block main_area %}
+    <div class="py-4">
+        <div class="container px-4 px-lg-5 my-4">
+            <div class="row ml-3">
+                <h4>S-Market은 신선한 상품을 신속하게 배송해주는 온라인 마켓입니다.</h4>
+            </div>
+            <div class="row my-5">
+                <div class="col-6">
+                    <div class="card" data-toggle="modal" data-target="#chartModal1">
+                        <div class="card-body">
+                            <canvas id="chart1"></canvas>
+                        </div>
+                        <div class="card-footer">
+                            <h5>카테고리별 상품 갯수</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card" data-toggle="modal" data-target="#chartModal2">
+                        <div class="card-body">
+                            <canvas id="chart2"></canvas>
+                        </div>
+                        <div class="card-footer">
+                            <h5>판매량 BEST5</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="chartModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">카테고리별 상품 갯수</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <canvas id="chart1_modal"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" style="background-color: #142DB2; color: white;" data-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="chartModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel2">판매량 BEST5</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <canvas id="chart2_modal"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" style="background-color: #142DB2; color: white;" data-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart -->
+    <script>
+        data1 = {
+            labels: {{ labels1 | safe }},
+            datasets: [{ label: '카테고리', data: {{ data1 | safe }},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(84, 132, 235, 0.3)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1.0)',
+                'rgba(54, 162, 235, 1.0)',
+                'rgba(255, 206, 86, 1.0)',
+                'rgba(75, 192, 192, 1.0)',
+                'rgba(153, 102, 255, 1.0)',
+                'rgba(255, 159, 64, 1.0)',
+                'rgba(84, 132, 235, 1.0)'
+            ],
+            borderWidth: 1
+            }]
+        };
+
+        data2 = {
+            labels: {{ labels2 | safe }},
+            datasets: [{ label: '판매량', data: {{ data2 | safe }},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1.0)',
+                'rgba(54, 162, 235, 1.0)',
+                'rgba(255, 206, 86, 1.0)',
+                'rgba(75, 192, 192, 1.0)',
+                'rgba(153, 102, 255, 1.0)',
+                'rgba(255, 159, 64, 1.0)'
+            ],
+            borderWidth: 1
+            }]
+        };
+
+        var ctx1 = document.getElementById('chart1');
+        var chart1 = new Chart(ctx1, {
+            type: 'bar',
+            data: data1,
+            options: {
+                scales: {
+                    yAxes: [{ ticks: { beginAtZero: true }}]
+                }
+            }
+        });
+
+        var ctx1_modal = document.getElementById('chart1_modal');
+        var chart1_modal = new Chart(ctx1_modal, {
+            type: 'bar',
+            data: data1,
+            options: {
+                scales: {
+                    yAxes: [{ ticks: { beginAtZero: true }}]
+                }
+            }
+        });
+
+        var ctx2 = document.getElementById('chart2')
+        var chart2 = new Chart(ctx2, {
+            type: 'bar',
+            data: data2,
+            options: {
+                scales: {
+                    yAxes: [{ ticks: { beginAtZero: true }}]
+                }
+            }
+        });
+
+        var ctx2_modal = document.getElementById('chart2_modal');
+        var chart2_modal = new Chart(ctx2_modal, {
+            type: 'bar',
+            data: data2,
+            options: {
+                scales: {
+                    yAxes: [{ ticks: { beginAtZero: true }}]
+                }
+            }
+        });
+    </script>
+
+{% endblock %}
