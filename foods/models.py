@@ -66,4 +66,4 @@ class Comment(models.Model):
         if self.author.socialaccount_set.exists():
             return self.author.socialaccount_set.first().get_avatar_url()
         else:
-            return 'https://doitdjango.com/avatar/id/370/78f08c0876b31d05/svg/{self.author.username}/'
+            return f'https://doitdjango.com/avatar/id/370/78f08c0876b31d05/svg/{self.author.username}/'

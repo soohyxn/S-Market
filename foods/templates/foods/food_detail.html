@@ -41,7 +41,11 @@
                             <h3>{{ food.price }}원</h3>
                         </div>
                         <!-- Product content -->
-                        <p class="lead">{{ food.get_content_markdown | safe }}</p><hr/>
+                        <p class="lead">
+                            {{ food.get_content_markdown | safe }}
+                            {{ food.calorie }}kcal
+                        </p>
+                        <hr/>
                         <!-- Product manufacturer -->
                         {% if food.manufacturer %}
                             <p style="font-weight: bold;">제조사</p>
