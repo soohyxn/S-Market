@@ -1,0 +1,17 @@
+{% extends 'foods/base.html' %}
+{% load crispy_forms_tags %}
+{% block main_area %}
+    <div class="my-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <h1>후기 수정</h1>
+            <hr/>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <table>{{ form | crispy }}</table>
+                <button type="submit" class="btn float-right" style="background-color: #142DB2; color: white;">완료</button>
+                <br>
+            </form>
+            {{ form.media }}
+        </div>
+    </div>
+{% endblock %}
