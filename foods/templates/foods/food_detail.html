@@ -89,7 +89,7 @@
                     {% if food.comment_set.exists %}
                     {% for comment in food.comment_set.all %}
                         {% if user.is_authenticated and comment.author == user %}
-                        <div class="d-flex float-right">
+                        <div class="d-flex my-2 float-right">
                             <a role="button" class="btn btn-sm mr-1" href="/foods/update_comment/{{ comment.pk }}/" style="background-color: #142DB2; color: white;">수정</a>
                             <a role="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteCommentModal-{{ comment.pk }}">삭제</a>
 
@@ -115,14 +115,11 @@
                             </div>
                         </div>
                         {% endif %}
-                        <div class="d-flex">
-                            <div class="flex-shrink-0"><img class="rounded-circle" src="{{ comment.get_avatar_url }}" alt="{{ comment.author }}" width="50px" /></div>
-                            <div class="ms-3">
-                                <div class="container fw-bold">
-                                    {{ comment.author.username }}&nbsp;&nbsp;
-                                    <small class="text-muted">{{ comment.updated_at | date:"Y-m-d h:i:s" }}</small><br>
-                                    {{ comment.content | linebreaks }}
-                                </div>
+                        <div class="media my-2">
+                            <img class="rounded-circle" src="{{ comment.get_avatar_url }}" width="50px" />
+                            <div class="media-body ml-3">
+                                <h6>{{ comment.author.username }}&nbsp;&nbsp;<small class="text-muted">{{ comment.updated_at | date:"Y-m-d h:i:s" }}</small><br></h6>
+                                {{ comment.content | linebreaks }}
                             </div>
                         </div>
                     {% endfor %}

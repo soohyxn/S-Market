@@ -25,19 +25,47 @@
     <div class="py-4 bg-light">
         <div class="container px-4 px-lg-5 mt-2">
             <div class="card-body">
-                <h2>작성한 댓글</h2><br>
+                <h2>작성한 후기</h2><br>
                 {% if user.comment_set.exists %}
                 {% for comment in user.comment_set.all %}
-                <div class="d-flex" onclick="location.href='{{ comment.get_absolute_url }}'">
-                    <div class="flex-shrink-0"><img class="rounded-circle" src="{{ comment.get_avatar_url }}" alt="{{ comment.author }}" width="50px" /></div>
-                    <div class="ms-3">
-                        <div class="container fw-bold">
-                            {{ comment.author.username }}&nbsp;&nbsp;
-                            <small class="text-muted">{{ comment.created_at | date:"Y-m-d h:m:s"}}</small><br>
+                    {% if comment.author == user %}
+                    <div class="d-flex my-3 float-right">
+                        <a role="button" class="btn btn-sm mr-1" href="/foods/update_comment/{{ comment.pk }}/" style="background-color: #142DB2; color: white;">수정</a>
+                        <a role="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteCommentModal-{{ comment.pk }}">삭제</a>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteCommentModal-{{ comment.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">댓글을 삭제하시겠습니까?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{ comment | linebreaks }}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn" style="background-color: #142DB2; color: white;" data-dismiss="modal">닫기</button>
+                                        <a role="button" class="btn btn-danger" href="/foods/delete_comment/{{ comment.pk }}/">삭제</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="media my-3" onclick="location.href='{{ comment.get_absolute_url }}'">
+                        <img src="{{ comment.food.image.url }}" width="70px" />
+                        <div class="media-body ml-3">
+                            <h6>
+                                {% if comment.food.brand %} [{{ comment.food.brand }}] {% endif %}
+                                {{ comment.food.name }}
+                            </h6>
+                            {{ comment.author.username }}&nbsp;&nbsp;<small class="text-muted">{{ comment.updated_at | date:"Y-m-d h:i:s" }}</small><br>
                             {{ comment.content | linebreaks }}
                         </div>
                     </div>
-                </div>
                 {% endfor %}
                 {% endif %}
             </div>
