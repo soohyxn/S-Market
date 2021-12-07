@@ -10,6 +10,7 @@ def home(request):
 # 마이페이지
 def mypage(request):
     categories = Category.objects.all() # 모든 카테고리
+
     return render(request, 'single_pages/mypage.html', {'categories':  categories})
 
 # 회사소개

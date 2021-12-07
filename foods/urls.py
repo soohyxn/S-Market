@@ -11,4 +11,6 @@ urlpatterns = [
     path('update_comment/<int:pk>/', views.CommentUpdate.as_view()), # 상품 후기 수정 페이지: 서버IP/foods/update_comment/{pk}/
     path('delete_comment/<int:pk>/', views.delete_comment), # 상품 후기 삭제: 서버IP/foods/delete_comment/{pk}/
     path('search/<str:q>/', views.FoodSearch.as_view()),  # 상품 검색 페이지: 서버IP/foods/search/{q}/
+    path('like/<int:pk>/', views.like_food), # 상품 좋아요: 서버IP/foods/like/{pk}/
+
 ]

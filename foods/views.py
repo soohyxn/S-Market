@@ -122,3 +122,15 @@ def category_page(request, slug):
     categories = Category.objects.all() # 모든 카테고리
 
     return render(request, 'foods/food_list.html', {'food_list': food_list, 'category': category, 'categories': categories})
+
+# 상품 좋아요
+def like_food(request, pk):
+    if request.user.is_authenticated: # 로그인을 한 경우
+        food = get_object_or_404(Food, pk=pk)
+        if request.user in food.like_users.all(): # 상품의 좋아요한 사용자 목록에 사용자가 있는 경우 목록에서 삭제
+            food.like_users.remove(request.user)
+        else: # 상품의 좋아요한 사용자 목록에 사용자가 없는 경우 목록에 추가
+            food.like_users.add(request.user)
+        return redirect('/foods/')
+    else:
+        raise PermissionDenied

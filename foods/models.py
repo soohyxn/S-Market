@@ -41,6 +41,8 @@ class Food(models.Model):
     manufacturer = models.ForeignKey(Manufacturer, null=True, on_delete=models.SET_NULL) # 제조사
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL) # 카테고리
 
+    like_users = models.ManyToManyField(User, blank=True) # 상품을 좋아요한 사용자
+
     def __str__(self):
         return f'[{self.pk}] {self.name}'
 
@@ -49,6 +51,9 @@ class Food(models.Model):
 
     def get_content_markdown(self): # 상품 설명을 마크다운으로 가져오는 메서드
         return markdown(self.content)
+
+    def get_like_url(self):
+        return f'/foods/like/{self.pk}/'
 
 # 후기(댓글)
 class Comment(models.Model):
