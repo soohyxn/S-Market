@@ -61,6 +61,14 @@
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart
                             </button>
+                            <!-- 상품 찜 기능 -->
+                            <a href="{{ food.get_like_url }}?next={{ request.path }}" class="ml-3 mt-1">
+                                {% if user in food.like_users.all %}
+                                    <i class="fas fa-heart fa-2x"></i>
+                                {% else %}
+                                    <i class="far fa-heart fa-2x"></i>
+                                {% endif %}
+                            </a>
                         </div>
                     </div>
                 </div>
