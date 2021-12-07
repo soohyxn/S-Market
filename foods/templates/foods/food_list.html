@@ -1,6 +1,6 @@
 {% extends 'foods/base.html' %}
 {% block main_area %}
-        <!-- Product Create -->
+        <!-- 상품 등록 버튼 -->
         {% if user.is_authenticated %}
             {% if user.is_staff or user.is_superuser %}
                 <div class="container px-5 my-4">
@@ -12,7 +12,7 @@
             {% endif %}
         {% endif %}
 
-        <!-- Products Info -->
+        <!-- 상품 정보 -->
         <div class="mt-5" align="center">
             {% if category %}
                 <h1>{{ category }}</h1>
@@ -23,10 +23,10 @@
             {% endif %}
         </div>
 
-        <!-- Product list -->
+        <!-- 상품 목록 -->
         <div class="py-2">
             <div class="container px-4 px-lg-5 mt-5">
-                <!-- Product count -->
+                <!-- 상품 총 개수 -->
                 <div class="mb-3">
                     {% if category or search_info %}
                         총 {{ food_list.count }}개
@@ -38,7 +38,7 @@
                     {% for food in food_list %}
                     <div class="col mb-5">
                         <div class="card border-0">
-                            <!-- Product image-->
+                            <!-- 상품 이미지 -->
                             <a href="{{ food.get_absolute_url }}">
                                 {% if food.image %}
                                     <img class="card-img-top" src="{{ food.image.url }}"/>
@@ -47,25 +47,26 @@
                                 {% endif %}
                             </a>
                             <div class="card-body">
-                                <a href="{{ food.get_like_url }}" class="float-right">
+                                <!-- 상품 찜 기능 -->
+                                <a href="{{ food.get_like_url }}?next={{ request.path }}" class="float-right">
                                     {% if user in food.like_users.all %}
                                         <i class="fas fa-heart fa-lg"></i>
                                     {% else %}
                                         <i class="far fa-heart fa-lg"></i>
                                     {% endif %}
                                 </a>
-                                <!-- Product category -->
+                                <!-- 상품 카테고리 -->
                                 {% if food.category %}
                                     <p><span class="badge" style="background-color: #142DB2; color: white;">{{ food.category }}</span></p>
                                 {% endif %}
-                                <!-- Product name-->
+                                <!-- 상풍명 -->
                                 <h5>
                                     {% if food.brand %} [{{ food.brand }}] {% endif %}
                                     {{ food.name }}
                                 </h5>
-                                <!-- Product price-->
+                                <!-- 상품 가격-->
                                 <h5>{{ food.price }}원</h5>
-                                <!-- Product content -->
+                                <!-- 상품 설명 -->
                                 <p>{{ food.get_content_markdown | truncatewords_html:5 | safe }}</p>
                             </div>
                         </div>

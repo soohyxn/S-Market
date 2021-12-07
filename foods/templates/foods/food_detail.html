@@ -1,7 +1,7 @@
 {% extends 'foods/base.html' %}
 {% load crispy_forms_tags %}
 {% block main_area %}
-        <!-- Product Update -->
+        <!-- 상품 수정 버튼 -->
         {% if user.is_authenticated %}
             {% if user.is_staff or user.is_superuser %}
                 <div class="container px-5 my-4">
@@ -12,11 +12,11 @@
             {% endif %}
         {% endif %}
 
-        <!-- Product section-->
+        <!-- 상품 상세 정보 -->
         <div class="py-5">
             <div class="container px-4 px-lg-5 my-4">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <!-- Product image -->
+                    <!-- 상품 이미지 -->
                     <div class="col-md-5">
                         <a href="{{ f.get_absolute_url }}">
                             {% if food.image %}
@@ -27,26 +27,26 @@
                         </a>
                     </div>
                     <div class="col-md-7">
-                        <!-- Product category -->
+                        <!-- 상품 카테고리 -->
                         {% if food.category %}
                             <button type="button" class="btn btn-sm" style="background-color: #142DB2; color: white;">{{ food.category }}</button>
                         {% endif %}
-                        <!-- Product name -->
+                        <!-- 상품명 -->
                         <h3 class="display-5 fw-bolder mt-3">
                             {% if food.brand %} [{{ food.brand }}] {% endif %}
                             {{ food.name }}
                         </h3>
-                        <!-- Product price -->
+                        <!-- 상품 가격 -->
                         <div class="fs-5 mt-3 mb-5">
                             <h3>{{ food.price }}원</h3>
                         </div>
-                        <!-- Product content -->
+                        <!-- 상품 설명 -->
                         <p class="lead">
                             {{ food.get_content_markdown | safe }}
                             {{ food.calorie }}kcal
                         </p>
                         <hr/>
-                        <!-- Product manufacturer -->
+                        <!-- 상품 제조사 정보 -->
                         {% if food.manufacturer %}
                             <p style="font-weight: bold;">제조사</p>
                             <p>{{ food.manufacturer.name }} / {{ food.manufacturer.address }} / {{ food.manufacturer.contact }}</p>
@@ -67,33 +67,35 @@
             </div>
         </div>
 
-        <!-- Comment section-->
+        <!-- 상품에 작성된 후기 목록 -->
         <div class="py-4 bg-light">
             <div class="container px-4 px-lg-5 mt-2">
                 <div class="card-body">
                     <h2>후기</h2><br>
-                    <!-- Comment form-->
                     {% if user.is_authenticated %}
+                        <!-- 후기 작성칸 -->
                         <form class="mb-4" method="POST" action="{{ food.get_absolute_url }}new_comment/">
                             {% csrf_token %}
                             <div class="form-group">{{ comment_form | crispy }}</div>
                             <button type="submit" class="btn float-right" style="background-color: #142DB2; color: white;">완료</button>
                         </form>
                     {% else %}
+                        <!-- 로그인 버튼 -->
                         <a role="button" class="btn" data-toggle="modal" data-target="#loginModal" style="background-color: #142DB2; color: white;">로그인 후 후기를 남길 수 있습니다.</a><br>
                     {% endif %}
                     <br>
 
-                    <!-- Single comment-->
+                    <!-- 후기 -->
                     <div class="mt-4">
                     {% if food.comment_set.exists %}
                     {% for comment in food.comment_set.all %}
                         {% if user.is_authenticated and comment.author == user %}
                         <div class="d-flex my-2 float-right">
+                            <!-- 후기 수정/삭제 버튼 -->
                             <a role="button" class="btn btn-sm mr-1" href="/foods/update_comment/{{ comment.pk }}/" style="background-color: #142DB2; color: white;">수정</a>
                             <a role="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteCommentModal-{{ comment.pk }}">삭제</a>
 
-                            <!-- Modal -->
+                            <!-- 후기 삭제 Modal -->
                             <div class="modal fade" id="deleteCommentModal-{{ comment.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -116,8 +118,10 @@
                         </div>
                         {% endif %}
                         <div class="media my-2">
+                            <!-- 후기 작성자 프로필 사진 -->
                             <img class="rounded-circle" src="{{ comment.get_avatar_url }}" width="50px" />
                             <div class="media-body ml-3">
+                                <!-- 후기 내용 -->
                                 <h6>{{ comment.author.username }}&nbsp;&nbsp;<small class="text-muted">{{ comment.updated_at | date:"Y-m-d h:i:s" }}</small><br></h6>
                                 {{ comment.content | linebreaks }}
                             </div>

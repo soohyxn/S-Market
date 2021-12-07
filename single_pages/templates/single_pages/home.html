@@ -1,13 +1,13 @@
 {% extends 'foods/base.html' %}
 {% load static %}
 {% block main_area %}
-    <!-- Head Content -->
+    <!-- 대표 멘트 -->
     <div class="my-5 text-center">
         <h1 class="font-italic">Fresh & Fast</h1>
         <h4>집에서 신선한 상품을 신속하고 빠르게</h4>
     </div>
 
-    <!-- Head Images -->
+    <!-- 대표 이미지 -->
     <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" data-interval="2000">
@@ -30,36 +30,44 @@
         </a>
     </div>
 
-    <!-- Recent Product -->
+    <!-- 신상품 -->
     <div class="py-5">
         <h1 class="text-center">신상품</h1>
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
-                {% for f in recent_foods %}
+                {% for food in recent_foods %}
                 <div class="col mb-5">
                     <div class="card border-0">
-                        <!-- Product image-->
-                        <a href="{{ f.get_absolute_url }}">
-                            {% if f.image %}
-                                <img class="card-img-top" src="{{ f.image.url }}"/>
+                        <!-- 상품 이미지 -->
+                        <a href="{{ food.get_absolute_url }}">
+                            {% if food.image %}
+                                <img class="card-img-top" src="{{ food.image.url }}"/>
                             {% else %}
                                 <img class="card-img-top" src="https://dummyimage.com/600x800/ffffff/57137b.jpg"/>
                             {% endif %}
                         </a>
                         <div class="card-body">
-                            <!-- Product category -->
-                            {% if f.category %}
-                                <p><span class="badge" style="background-color: #142DB2; color: white;">{{ f.category }}</span></p>
+                            <!-- 상품 찜 기능 -->
+                            <a href="{{ food.get_like_url }}?next={{ request.path }}" class="float-right">
+                                {% if user in food.like_users.all %}
+                                    <i class="fas fa-heart fa-lg"></i>
+                                {% else %}
+                                    <i class="far fa-heart fa-lg"></i>
+                                {% endif %}
+                            </a>
+                            <!-- 상품 카테고리 -->
+                            {% if food.category %}
+                                <p><span class="badge" style="background-color: #142DB2; color: white;">{{ food.category }}</span></p>
                             {% endif %}
-                            <!-- Product name-->
+                            <!-- 상풍명 -->
                             <h5>
-                                {% if f.brand %} [{{ f.brand }}] {% endif %}
-                                {{ f.name }}
+                                {% if food.brand %} [{{ food.brand }}] {% endif %}
+                                {{ food.name }}
                             </h5>
-                            <!-- Product price-->
-                            <h5>{{ f.price }}원</h5>
-                            <!-- Product content -->
-                            <p>{{ f.get_content_markdown | truncatewords_html:5 | safe }}</p>
+                            <!-- 상품 가격-->
+                            <h5>{{ food.price }}원</h5>
+                            <!-- 상품 설명 -->
+                            <p>{{ food.get_content_markdown | truncatewords_html:5 | safe }}</p>
                         </div>
                     </div>
                 </div>

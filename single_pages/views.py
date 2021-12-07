@@ -10,8 +10,12 @@ def home(request):
 # 마이페이지
 def mypage(request):
     categories = Category.objects.all() # 모든 카테고리
+    food_list = []
+    for food in Food.objects.all():
+        if request.user in food.like_users.all():
+            food_list.append(food)
 
-    return render(request, 'single_pages/mypage.html', {'categories':  categories})
+    return render(request, 'single_pages/mypage.html', {'categories':  categories, 'food_list': food_list})
 
 # 회사소개
 def company(request):

@@ -41,7 +41,7 @@ class Food(models.Model):
     manufacturer = models.ForeignKey(Manufacturer, null=True, on_delete=models.SET_NULL) # 제조사
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL) # 카테고리
 
-    like_users = models.ManyToManyField(User, blank=True) # 상품을 좋아요한 사용자
+    like_users = models.ManyToManyField(User, blank=True) # 상품을 찜한 사용자
 
     def __str__(self):
         return f'[{self.pk}] {self.name}'
@@ -72,7 +72,7 @@ class Comment(models.Model):
     def get_absolute_url(self): # 후기의 상품을 가져오는 메서드
         return self.food.get_absolute_url()
 
-    def get_avatar_url(self): # 사용자 프로필 이미지를 가져오는 메서드
+    def get_avatar_url(self): # 사용자 프로필 사진을 가져오는 메서드
         if self.author.socialaccount_set.exists():
             return self.author.socialaccount_set.first().get_avatar_url()
         else:

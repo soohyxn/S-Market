@@ -9,8 +9,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <!-- 홈 페이지 -->
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li>
+                <!-- 상품 목록 페이지 -->
                 <li class="nav-item"><a class="nav-link" href="/foods/">전체 상품</a></li>
+                <!-- 카테고리 페이지 -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-bars"></i>&nbsp;&nbsp;카테고리
@@ -22,13 +25,16 @@
                         {% endfor %}
                     </div>
                 </li>
+                <!-- 마이페이지 -->
                 <li class="nav-item"><a class="nav-link" href="/mypage/">마이페이지</a></li>
+                <!-- 회사 소개 페이지 -->
                 <li class="nav-item"><a class="nav-link" href="/company/">회사 소개</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #57137b;">
+                            <!-- 로그인한 사용자 정보 -->
                             {% if user.socialaccount_set.all.0.get_avatar_url %}
                                 <img class="rounded-circle" width="25px" src="{{ user.socialaccount_set.all.0.get_avatar_url }}">
                             {% else %}
@@ -42,6 +48,7 @@
                     </li>
                 {% else %}
                     <li class="nav-item">
+                        <!-- 로그인 버튼 -->
                         <a role="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" style="background-color:	#142DB2; color: white;">
                             로그인
                         </a>
@@ -52,7 +59,7 @@
     </div>
 </nav>
 
-<!-- Modal -->
+<!-- 로그인 Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -65,17 +72,21 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6">
+                        <!-- 구글 로그인 -->
                         <a href="{% provider_login_url 'google' %}">
                             <img src="{% static 'foods/images/google.png' %}" class="my-1 w-100" height="50px">
                         </a>
+                        <!-- 카카오 로그인 -->
                         <a href="{% provider_login_url 'kakao' %}">
                             <img src="{% static 'foods/images/kakao.png' %}" class="my-1 w-100" height="50px">
                         </a>
                     </div>
                     <div class="col-md-6">
+                        <!-- 이메일 로그인 -->
                         <a role="button" class="btn btn-outline-dark btn-block btn-lg my-1" href="/accounts/login/">
                             <i class="far fa-envelope"></i>&nbsp;&nbsp;E-mail 로그인
                         </a>
+                        <!-- 이메일 회원가입 -->
                         <a role="button" class="btn btn-outline-dark btn-block btn-lg my-2" href="/accounts/signup/">
                             <i class="far fa-envelope"></i>&nbsp;&nbsp;E-mail 회원가입
                         </a>
