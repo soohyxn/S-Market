@@ -19,11 +19,11 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('foods/', include('foods.urls')),
-    path('', include('single_pages.urls')),
-    path('accounts/', include('allauth.urls')),
-    path('markdownx/', include('markdownx.urls')),
+    path('admin/', admin.site.urls), # 관리자 페이지
+    path('foods/', include('foods.urls')), # 상품 관련 페이지
+    path('', include('single_pages.urls')), # 상품 관련 외의 페이지
+    path('accounts/', include('allauth.urls')), # 회원 로그인/회원가입
+    path('markdownx/', include('markdownx.urls')), # 마크다운
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # 이미지 경로

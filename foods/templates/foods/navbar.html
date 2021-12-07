@@ -65,18 +65,18 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="{% provider_login_url 'google' %}">
-                            <i class="fab fa-google"></i>&nbsp;&nbsp;Google 로그인
+                        <a href="{% provider_login_url 'google' %}">
+                            <img src="{% static 'foods/images/google.png' %}" class="my-1 w-100" height="50px">
                         </a>
-                        <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="{% provider_login_url 'kakao' %}">
-                            <i class="fas fa-comment"></i>&nbsp;&nbsp;Kakao 로그인
+                        <a href="{% provider_login_url 'kakao' %}">
+                            <img src="{% static 'foods/images/kakao.png' %}" class="my-1 w-100" height="50px">
                         </a>
                     </div>
                     <div class="col-md-6">
-                        <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/accounts/login/">
+                        <a role="button" class="btn btn-outline-dark btn-block btn-lg my-1" href="/accounts/login/">
                             <i class="far fa-envelope"></i>&nbsp;&nbsp;E-mail 로그인
                         </a>
-                        <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/accounts/signup/">
+                        <a role="button" class="btn btn-outline-dark btn-block btn-lg my-2" href="/accounts/signup/">
                             <i class="far fa-envelope"></i>&nbsp;&nbsp;E-mail 회원가입
                         </a>
                     </div>
