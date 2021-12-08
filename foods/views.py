@@ -35,14 +35,16 @@ class CommentUpdate(LoginRequiredMixin, UpdateView):
         else:
             raise PermissionDenied
 
+    def get_success_url(self):
+        return self.request.GET['next'] # 원래 있던 페이지로 이동
+
 # 상품 후기(댓글) 삭제
 def delete_comment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
-    food = comment.food
 
     if request.user.is_authenticated and request.user == comment.author: # 로그인한 사용자가 후기 작성자라면 후기를 삭제한다
         comment.delete()
-        return redirect(food.get_absolute_url())
+        return redirect(request.GET['next']) # 원래 있던 페이지로 이동
     else:
         raise PermissionDenied
 
@@ -131,6 +133,6 @@ def like_food(request, pk):
             food.like_users.remove(request.user)
         else: # 상품의 좋아요한 사용자 목록에 사용자가 없는 경우 목록에 추가
             food.like_users.add(request.user)
-        return redirect(request.GET['next'])
+        return redirect(request.GET['next']) # 원래 있던 페이지로 이동
     else:
         raise PermissionDenied
