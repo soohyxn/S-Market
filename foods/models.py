@@ -52,7 +52,7 @@ class Food(models.Model):
     def get_content_markdown(self): # 상품 설명을 마크다운으로 가져오는 메서드
         return markdown(self.content)
 
-    def get_like_url(self):
+    def get_like_url(self): # 상품 찜하기 수행 메서드
         return f'/foods/like/{self.pk}/'
 
 # 후기(댓글)
