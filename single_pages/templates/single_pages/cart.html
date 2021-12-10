@@ -1,0 +1,73 @@
+{% extends 'foods/base.html' %}
+{% load static %}
+{% block main_area %}
+    <div class="py-5">
+        <h1 class="text-center">장바구니</h1>
+        <div class="container px-4 px-lg-5 mt-5" align="center">
+            <div class="row table-responsive">
+                <table class="table table-bordered" style="text-align: center;">
+                <thead>
+                <tr style="background-color: #e6f4fa;">
+                    <th scope="col"><input type="checkbox"></th>
+                    <th scope="col">상품</th>
+                    <th scope="col">판매가</th>
+                    <th scope="col">수량</th>
+                    <th scope="col">구매가</th>
+                    <th scope="col">선택</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for food in food_list %}
+                <tr>
+                    <td style="vertical-align:middle;"><input type="checkbox"></td>
+                    <td>
+                        <div class="row container">
+                            <!-- 상품 이미지 -->
+                            <a href="{{ food.get_absolute_url }}">
+                                {% if food.image %}
+                                <img src="{{ food.image.url }}" width="100px"/>
+                                {% else %}
+                                <img src="https://dummyimage.com/600x800/ffffff/57137b.jpg" width="100px"/>
+                                {% endif %}
+                            </a>
+                            <!-- 상풍명 -->
+                            <p class="ml-3">
+                                {% if food.brand %} [{{ food.brand }}] {% endif %}
+                                {{ food.name }}
+                            </p>
+                        </div>
+                    </td>
+                    <td style="vertical-align:middle;">
+                        <!-- 상품 판매가 -->
+                        {{ food.price }}원
+                    </td>
+                    <td style="vertical-align:middle;">
+                        <!-- 수량 감소 버튼 -->
+                        <a><i class="fas fa-minus-circle"></i></a>
+                        <!-- 상품 수량 -->
+                        1
+                        <!-- 수량 증가 버튼 -->
+                        <a><i class="fas fa-plus-circle"></i></a>
+                    </td>
+                    <td style="vertical-align:middle;">
+                        <!-- 상품 구매가 -->
+                        {{ food.price }}원
+                    </td>
+                    <!-- 주문/삭제 버튼 -->
+                    <td style="vertical-align:middle;">
+                        <button type="button" class="btn btn-sm my-2" style="background-color:	#142DB2; color: white;">주문하기</button><br>
+                        <button type="button" class="btn btn-sm btn-outline" style="border-color:	#142DB2; color: black;">삭제하기</button>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+            <div class="mt-3">
+                <button type="button" class="btn btn-lg mr-3" style="background-color:	#142DB2; color: white;">전체상품 주문</button>
+                <button type="button" class="btn btn-lg btn-outline" style="border-color:	#142DB2; color: black;">선택상품 주문</button>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

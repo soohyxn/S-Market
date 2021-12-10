@@ -67,7 +67,7 @@ class Comment(models.Model):
         ordering = ['-pk']
 
     def __str__(self):
-        return f'{self.author}::{self.content}'
+        return f'{self.author} :: {self.content}'
 
     def get_absolute_url(self): # 후기의 상품을 가져오는 메서드
         return self.food.get_absolute_url()
@@ -77,3 +77,11 @@ class Comment(models.Model):
             return self.author.socialaccount_set.first().get_avatar_url()
         else:
             return f'https://doitdjango.com/avatar/id/370/78f08c0876b31d05/svg/{self.author.username}/'
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE) # 사용자
+    food = models.ForeignKey(Food, on_delete=models.CASCADE)  # 상품
+    created_at = models.DateTimeField(auto_now_add=True)  # 생성날짜
+
+    def __str__(self):
+        return f'{self.user} :: {self.food.name}'
