@@ -52,7 +52,7 @@ def delete_comment(request, pk):
 # 상품 등록
 class FoodCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Food
-    fields = ['name', 'content', 'image', 'brand', 'price', 'calorie', 'sales', 'manufacturer', 'category'] # 작성 내용
+    fields = ['name', 'content', 'image', 'brand', 'price', 'calorie', 'sales', 'inventory', 'manufacturer', 'category'] # 작성 내용
 
     def test_func(self): # 상품 등록 페이지에 접근 가능한 사용자를 제한
         return self.request.user.is_superuser or self.request.user.is_staff
@@ -66,7 +66,7 @@ class FoodCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 # 상품 수정
 class FoodUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Food
-    fields = ['name', 'content', 'image', 'brand', 'price', 'calorie', 'sales', 'manufacturer', 'category'] # 작성 내용
+    fields = ['name', 'content', 'image', 'brand', 'price', 'calorie', 'sales', 'inventory', 'manufacturer', 'category'] # 작성 내용
 
     template_name = 'foods/food_update_form.html'
 

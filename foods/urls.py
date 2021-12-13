@@ -2,7 +2,7 @@ from django.urls import path
 from foods import views
 
 urlpatterns = [
-    path('', views.FoodList.as_view()), # 상품 전체 페이지: 서버IP/foods/
+    path('', views.FoodList.as_view()), # 상품 목록 페이지: 서버IP/foods/
     path('<int:pk>/', views.FoodDetail.as_view()), # 상품 상세 페이지: 서버IP/foods/{pk}/
     path('category/<str:slug>/', views.category_page), # 상품 카테고리 페이지: 서버IP/foods/category/{slug}/
     path('create_food/', views.FoodCreate.as_view()), # 상품 등록 페이지: 서버IP/foods/create_food/
