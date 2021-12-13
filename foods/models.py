@@ -37,6 +37,7 @@ class Food(models.Model):
     price = models.IntegerField() # 가격
     calorie = models.IntegerField() # 칼로리
     sales = models.IntegerField(default=0) # 판매량
+    inventory = models.IntegerField(default=0) # 재고량
 
     manufacturer = models.ForeignKey(Manufacturer, null=True, on_delete=models.SET_NULL) # 제조사
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL) # 카테고리

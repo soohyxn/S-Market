@@ -42,10 +42,10 @@
                             <div class="d-flex my-3 float-right">
                                 <!-- 후기 수정/삭제 버튼 -->
                                 <a role="button" class="btn btn-sm mr-1" href="/foods/update_comment/{{ comment.pk }}/?next={{ request.path }}" style="background-color: #142DB2; color: white;">수정</a>
-                                <a role="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteCommentModal-{{ comment.pk }}">삭제</a>
+                                <a role="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteCommentModal">삭제</a>
 
                                 <!-- 댓글 삭제 Modal -->
-                                <div class="modal fade" id="deleteCommentModal-{{ comment.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="deleteCommentModal" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">

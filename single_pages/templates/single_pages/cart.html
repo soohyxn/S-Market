@@ -2,6 +2,13 @@
 {% load static %}
 {% load mathfilters %}
 {% block main_area %}
+    <!-- 알림 메세지 -->
+    {% if messages %}
+    {% for message in messages %}
+        {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+    {% endfor %}
+    {% endif %}
+
     <div class="py-5">
         <h1 class="text-center">장바구니</h1>
         <div class="container px-4 px-lg-5 mt-5" align="center">
@@ -42,11 +49,11 @@
                     </td>
                     <td style="vertical-align:middle;">
                         <!-- 수량 감소 버튼 -->
-                        <a><i class="fas fa-minus-circle"></i></a>
+                        <a role="button" class="btn" href="/foods/update_cart/{{ cart.food.pk }}/?action=minus"><i class="fas fa-minus-circle"></i></a>
                         <!-- 상품 수량 -->
                         {{ cart.quantity }}
                         <!-- 수량 증가 버튼 -->
-                        <a><i class="fas fa-plus-circle"></i></a>
+                        <a role="button" class="btn" href="/foods/update_cart/{{ cart.food.pk }}/?action=plus"><i class="fas fa-plus-circle"></i></a>
                     </td>
                     <td style="vertical-align:middle;" id="final-price">
                         <!-- 상품 구매가 -->
@@ -54,8 +61,26 @@
                     </td>
                     <!-- 주문/삭제 버튼 -->
                     <td style="vertical-align:middle;">
-                        <button type="button" class="btn btn-sm my-2" style="background-color:	#142DB2; color: white;">주문하기</button><br>
-                        <button type="button" class="btn btn-sm btn-outline" style="border-color:	#142DB2; color: black;">삭제하기</button>
+                        <a role="button" class="btn btn-sm my-2" style="background-color: #142DB2; color: white;">주문하기</a><br>
+                        <a role="button" class="btn btn-sm btn-outline" data-toggle="modal" data-target="#deleteCartModal" style="border-color: #142DB2; color: black;">삭제하기</a>
+
+                        <!-- 장바구니 상품 삭제 Modal -->
+                        <div class="modal fade" id="deleteCartModal" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">장바구니에서 상품을 삭제하시겠습니까?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn" style="background-color: #142DB2; color: white;" data-dismiss="modal">닫기</button>
+                                        <a role="button" class="btn btn-danger" href="/foods/delete_cart/{{ cart.food.pk }}/">삭제</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}

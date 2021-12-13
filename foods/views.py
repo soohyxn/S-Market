@@ -145,12 +145,46 @@ def new_cart(request, pk, q):
         try:
             # 상품이 장바구니에 담겨 있으면 수량 변경
             cart = Cart.objects.get(user=request.user, food=food)
+            if q + cart.quantity > food.inventory:  # 담을 수량이 재고량을 넘는 경우 수량 변경
+                q = food.inventory - cart.quantity
             cart.quantity += q
         except Cart.DoesNotExist:
+            if q > food.inventory:  # 담을 수량이 재고량을 넘는 경우 수량 변경
+                q = food.inventory
             # 상품이 장바구니에 없으면 상품 추가
             cart = Cart.objects.create(user=request.user, food=food, quantity=q)
         cart.save()
         messages.success(request, '장바구니에 상품이 담겼습니다.')
         return redirect(food.get_absolute_url())
+    else:
+        raise PermissionDenied
+
+# 장바구니의 상품 수정
+def update_cart(request, pk):
+    if request.user.is_authenticated: # 로그인을 한 경우
+        food = get_object_or_404(Food, pk=pk)
+        cart = Cart.objects.get(user=request.user, food=food)
+        if request.GET['action'] == 'minus': # 감소 버튼을 클릭한 경우
+            if cart.quantity > 0:
+                cart.quantity -= 1
+            else:
+                messages.info(request, '최소 수량은 1개 이상입니다.')
+        elif request.GET['action'] == 'plus': # 증가 버튼을 클릭한 경우
+            if cart.quantity < cart.food.inventory:
+                cart.quantity += 1
+            else:
+                messages.info(request, '재고 수량은 ' + str(cart.food.inventory) + '개 입니다')
+        cart.save()
+        return redirect('/cart/')
+    else:
+        raise PermissionDenied
+
+# 장바구니에서 상품 삭제
+def delete_cart(request, pk):
+    if request.user.is_authenticated: # 로그인을 한 경우
+        food = get_object_or_404(Food, pk=pk)
+        cart = Cart.objects.get(user=request.user, food=food)
+        cart.delete()
+        return redirect('/cart/')
     else:
         raise PermissionDenied
