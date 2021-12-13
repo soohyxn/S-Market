@@ -39,11 +39,12 @@ def company(request):
     return render(request, 'single_pages/company.html',
                   {'categories':  categories, 'labels1': labels1, 'data1': data1, 'labels2': labels2, 'data2': data2})
 
+# 장바구니
 def cart(request):
-    carts = Cart.objects.filter(user=request.user).order_by('-created_at')
-    food_list =  []
+    cart_list = Cart.objects.filter(user=request.user).order_by('-created_at') # 로그인한 사용자의 장바구니 목록(최신순으로)
+    final_price = 0 # 총 상품금액
 
-    for cart in carts:
-        food_list.append(cart.food)
+    for cart in cart_list:
+        final_price += cart.food.price * cart.quantity
 
-    return render(request, 'single_pages/cart.html', {'categories':  categories, 'food_list': food_list})
+    return render(request, 'single_pages/cart.html', {'categories':  categories, 'cart_list': cart_list, 'final_price': final_price})

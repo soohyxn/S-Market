@@ -2,10 +2,11 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from foods.models import Food, Category, Comment
+from foods.models import Food, Category, Comment, Cart
 from .forms import CommentForm
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
+from django.contrib import messages
 
 # 상품 후기(댓글) 등록
 def new_comment(request, pk):
@@ -134,5 +135,22 @@ def like_food(request, pk):
         else: # 상품의 좋아요한 사용자 목록에 사용자가 없는 경우 목록에 추가
             food.like_users.add(request.user)
         return redirect(request.GET['next']) # 원래 있던 페이지로 이동
+    else:
+        raise PermissionDenied
+
+# 장바구니에 상품 추가
+def new_cart(request, pk, q):
+    if request.user.is_authenticated: # 로그인을 한 경우
+        food = get_object_or_404(Food, pk=pk)
+        try:
+            # 상품이 장바구니에 담겨 있으면 수량 변경
+            cart = Cart.objects.get(user=request.user, food=food)
+            cart.quantity += q
+        except Cart.DoesNotExist:
+            # 상품이 장바구니에 없으면 상품 추가
+            cart = Cart.objects.create(user=request.user, food=food, quantity=q)
+        cart.save()
+        messages.success(request, '장바구니에 상품이 담겼습니다.')
+        return redirect(food.get_absolute_url())
     else:
         raise PermissionDenied

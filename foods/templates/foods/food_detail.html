@@ -1,6 +1,13 @@
 {% extends 'foods/base.html' %}
 {% load crispy_forms_tags %}
 {% block main_area %}
+
+        {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        {% endfor %}
+        {% endif %}
+
         <!-- 상품 수정 버튼 -->
         {% if user.is_authenticated %}
             {% if user.is_staff or user.is_superuser %}
@@ -56,10 +63,10 @@
                             {% endif %}
                         {% endif %}
                         <div class="d-flex mt-5">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0 ml-3" type="button">
-                                <i class="bi-cart-fill me-1"></i>
-                                Add to cart
+                            <!-- 장바구니 기능 -->
+                            <input class="form-control text-center me-3" id="cart-input" type="num" value="1" style="max-width: 3rem" />
+                            <button class="btn ml-3" type="button" onclick="addCart()" style="background-color: #142DB2; color: white;">
+                                <i class="bi-cart-fill me-1"></i>장바구니 담기
                             </button>
                             <!-- 상품 찜 기능 -->
                             {% if user.is_authenticated %}
@@ -76,6 +83,25 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            function addCart(){
+                let cartValue = document.getElementById('cart-input').value;
+                if(cartValue > 0){
+                    location.href = window.location.href + 'new_cart/' + cartValue + '/';
+                }
+                else{
+                    alert('수량은 1개 이상으로 입력해주세요.');
+                }
+            }
+            document.getElementById('cart-input').addEventListener('keyup',
+                function(event){
+                    if(event.key == 'Enter'){
+                        addCart()
+                    }
+                }
+            );
+        </script>
 
         <!-- 상품에 작성된 후기 목록 -->
         <div class="py-4 bg-light">

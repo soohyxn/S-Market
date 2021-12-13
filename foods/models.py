@@ -78,9 +78,11 @@ class Comment(models.Model):
         else:
             return f'https://doitdjango.com/avatar/id/370/78f08c0876b31d05/svg/{self.author.username}/'
 
+# 장바구니
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) # 사용자
     food = models.ForeignKey(Food, on_delete=models.CASCADE)  # 상품
+    quantity = models.IntegerField(default=1) # 수량
     created_at = models.DateTimeField(auto_now_add=True)  # 생성날짜
 
     def __str__(self):
