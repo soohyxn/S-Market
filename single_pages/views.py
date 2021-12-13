@@ -8,6 +8,11 @@ def home(request):
     recent_foods = Food.objects.order_by('-pk')[:3] # 최신 등록된 상품 3개
     return render(request, 'single_pages/home.html', {'recent_foods': recent_foods, 'categories':  categories})
 
+# 베스트 상품
+def best(request):
+    best_foods = Food.objects.order_by('-sales')[:9] # 판매량이 높은 상품 9개
+    return render(request, 'single_pages/best.html', {'best_foods': best_foods})
+
 # 마이페이지
 def mypage(request):
     food_list = [] # 찜한 상품 목록
