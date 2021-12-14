@@ -48,20 +48,23 @@
                         {{ cart.food.price }}원
                     </td>
                     <td style="vertical-align:middle;">
-                        <!-- 수량 감소 버튼 -->
-                        <a role="button" class="btn" href="/foods/update_cart/{{ cart.food.pk }}/?action=minus"><i class="fas fa-minus-circle"></i></a>
-                        <!-- 상품 수량 -->
-                        {{ cart.quantity }}
-                        <!-- 수량 증가 버튼 -->
-                        <a role="button" class="btn" href="/foods/update_cart/{{ cart.food.pk }}/?action=plus"><i class="fas fa-plus-circle"></i></a>
+                        {% if cart.food.inventory == 0 %}
+                            <button class="btn" type="button" style="background-color: red; color: white;">품절</button>
+                        {% else %}
+                            <!-- 수량 감소 버튼 -->
+                            <a role="button" class="btn" href="/foods/update_cart/{{ cart.food.pk }}/?action=minus"><i class="fas fa-minus-circle"></i></a>
+                            <!-- 상품 수량 -->
+                            {{ cart.quantity }}
+                            <!-- 수량 증가 버튼 -->
+                            <a role="button" class="btn" href="/foods/update_cart/{{ cart.food.pk }}/?action=plus"><i class="fas fa-plus-circle"></i></a>
+                        {% endif %}
                     </td>
                     <td style="vertical-align:middle;" id="final-price">
                         <!-- 상품 구매가 -->
                         {{ cart.food.price | mul:cart.quantity }}원
                     </td>
-                    <!-- 주문/삭제 버튼 -->
                     <td style="vertical-align:middle;">
-                        <a role="button" class="btn btn-sm my-2" style="background-color: #142DB2; color: white;">주문하기</a><br>
+                        <!-- 상품 삭제 버튼 -->
                         <a role="button" class="btn btn-sm btn-outline" data-toggle="modal" data-target="#deleteCartModal" style="border-color: #142DB2; color: black;">삭제하기</a>
 
                         <!-- 장바구니 상품 삭제 Modal -->
@@ -92,10 +95,9 @@
             </table>
             </div>
             <div class="mt-3">
-                <button type="button" class="btn btn-lg mr-3" style="background-color:	#142DB2; color: white;">전체상품 주문</button>
-                <button type="button" class="btn btn-lg btn-outline" style="border-color:	#142DB2; color: black;">선택상품 주문</button>
+                <!-- 주문 버튼 -->
+                <a role="button" class="btn btn-lg mr-3" href="/order/" style="background-color: #142DB2; color: white;">주문하기</a>
             </div>
         </div>
     </div>
-
 {% endblock %}

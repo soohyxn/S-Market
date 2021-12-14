@@ -165,7 +165,7 @@ def update_cart(request, pk):
         food = get_object_or_404(Food, pk=pk)
         cart = Cart.objects.get(user=request.user, food=food)
         if request.GET['action'] == 'minus': # 감소 버튼을 클릭한 경우
-            if cart.quantity > 0:
+            if cart.quantity > 1:
                 cart.quantity -= 1
             else:
                 messages.info(request, '최소 수량은 1개 이상입니다.')

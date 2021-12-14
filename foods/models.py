@@ -20,7 +20,7 @@ class Category(models.Model):
 # 제조사
 class Manufacturer(models.Model):
     name = models.CharField(max_length=20, unique=True) # 제조사명
-    address = models.CharField(max_length=50) # 주소
+    address = models.CharField(max_length=100) # 주소
     contact = models.CharField(max_length=15) # 연락처
     domain = models.URLField(blank=True) # 웹사이트
 
@@ -82,9 +82,29 @@ class Comment(models.Model):
 # 장바구니
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) # 사용자
-    food = models.ForeignKey(Food, on_delete=models.CASCADE)  # 상품
+    food = models.ForeignKey(Food, on_delete=models.CASCADE) # 상품
     quantity = models.IntegerField(default=1) # 수량
-    created_at = models.DateTimeField(auto_now_add=True)  # 생성날짜
+    created_at = models.DateTimeField(auto_now_add=True) # 생성날짜
 
     def __str__(self):
         return f'{self.user} :: {self.food.name}'
+
+# 주문
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE) # 주문자
+    name = models.CharField(max_length=10) # 주문자 이름
+    address = models.CharField(max_length=100) # 배송지
+    contact = models.CharField(max_length=15) # 연락처
+    created_at = models.DateTimeField(auto_now_add=True) # 주문날짜
+
+    def __str__(self):
+        return f'[{self.pk}] {self.user}'
+
+# 주문상세
+class OrderDetail(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE) # 주문
+    food = models.ForeignKey(Food, on_delete=models.CASCADE) # 상품
+    quantity = models.IntegerField(default=1) # 수량
+
+    def __str__(self):
+        return f'[{self.order.pk}] {self.food.name}'
