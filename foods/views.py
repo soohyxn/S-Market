@@ -87,7 +87,7 @@ class FoodList(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(FoodList, self).get_context_data()
-        context['categories'] = Category.objects.all() # 모든 카테고리
+        context['categories'] = Category.objects.all() # 모든 카테고리 목록
         context['food_all_count'] = Food.objects.all().count() # 모든 상품의 개수
         return context
 
@@ -97,7 +97,7 @@ class FoodDetail(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(FoodDetail, self).get_context_data()
-        context['categories'] = Category.objects.all() # 모든 카테고리
+        context['categories'] = Category.objects.all() # 모든 카테고리 목록
         context['comment_form'] = CommentForm # 후기 작성 폼
         return context
 
@@ -114,15 +114,15 @@ class FoodSearch(FoodList):
 
     def get_context_data(self, **kwargs):
         context = super(FoodSearch, self).get_context_data()
-        q = self.kwargs['q']
+        q = self.kwargs['q'] # 검색어
         context['search_info'] = f'검색결과: {q}' # 검색 결과 정보
         return context
 
 # 상품 카테고리
 def category_page(request, slug):
-    category = Category.objects.get(slug=slug)
+    category = Category.objects.get(slug=slug) # 선택한 카테고리
     food_list = Food.objects.filter(category=category) # 카테고리에 속한 상품
-    categories = Category.objects.all() # 모든 카테고리
+    categories = Category.objects.all() # 모든 카테고리 목록
 
     return render(request, 'foods/food_list.html', {'food_list': food_list, 'category': category, 'categories': categories})
 
@@ -165,11 +165,13 @@ def update_cart(request, pk):
         food = get_object_or_404(Food, pk=pk)
         cart = Cart.objects.get(user=request.user, food=food)
         if request.GET['action'] == 'minus': # 감소 버튼을 클릭한 경우
+            # 수량이 1보다 크다면 수량을 감소하고 그렇지 않다면 메세지를 띄운다
             if cart.quantity > 1:
                 cart.quantity -= 1
             else:
                 messages.info(request, '최소 수량은 1개 이상입니다.')
         elif request.GET['action'] == 'plus': # 증가 버튼을 클릭한 경우
+            # 수량이 재고량보다 작다면 수량을 증가하고 그렇지 않다면 재고량을 메세지로 알려준다
             if cart.quantity < cart.food.inventory:
                 cart.quantity += 1
             else:

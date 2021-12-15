@@ -38,15 +38,19 @@
                 <!-- 주문 내역 -->
                 <div class="tab-pane fade show active" id="nav-order" role="tabpanel" aria-labelledby="nav-order-tab">
                     {% if user.order_set.exists %}
-                        {% for order in user.order_set.all %}
+                        {% for order in order_list %}
                         <div class="card my-3">
                             <!-- 주문 정보 -->
                             <h5 class="card-header">
                                 주문번호 - {{ order.pk }}&nbsp;&nbsp;<small class="text-muted">{{ order.created_at | date:"Y-m-d h:i:s" }}</small>
                             </h5>
-                            <!-- 주문한 상품 목록 -->
-                            <div class="card-body" align="center">
-                                <div class="row table-responsive">
+                            <div class="card-body">
+                                <!-- 주문자 정보 -->
+                                <p>주문자 이름:&nbsp;&nbsp;{{ order.name }}</p>
+                                <p>배송지:&nbsp;&nbsp;{{ order.address }}</p>
+                                <p>연락처:&nbsp;&nbsp;{{ order.contact }}</p>
+                                <!-- 주문한 상품 목록 -->
+                                <div class="table-responsive">
                                     <table class="table table-bordered" style="text-align: center;">
                                         <thead>
                                         <tr style="background-color: #e6f4fa;">
@@ -157,7 +161,7 @@
                 </div>
                 <!-- 찜한 상품 목록 -->
                 <div class="tab-pane fade" id="nav-like" role="tabpanel" aria-labelledby="nav-like-tab">
-                    {% if food_list.length != 0 %}
+                    {% if user.food_set.exists %}
                     <div class="py-2">
                         <div class="container px-4 px-lg-5 mt-5">
                             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
