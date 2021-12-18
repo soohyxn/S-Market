@@ -82,7 +82,7 @@ class FoodUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 # 상품 목록
 class FoodList(ListView):
     model = Food
-    ordering = 'pk' # 상품이 게시된 순으로
+    ordering = '-pk' # 상품이 게시된 순으로
     paginate_by = 6 # 한 페이지에 상품 개수
 
     def get_context_data(self, *, object_list=None, **kwargs):
