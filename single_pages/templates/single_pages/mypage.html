@@ -2,7 +2,6 @@
 {% load static %}
 {% load mathfilters %}
 {% block main_area %}
-    {% if user.is_authenticated %}
     <!-- 사용자 프로필 -->
     <div class="py-4">
         <div class="container px-4 px-lg-5 my-4">
@@ -214,15 +213,4 @@
             </div>
         </div>
     </div>
-    {% else %}
-    <div class="py-4">
-        <div class="container px-4 px-lg-5 my-4">
-            <div class="row gx-4 gx-lg-5 align-items-center">
-                <!-- 로그인 버튼 -->
-                <a role="button" class="btn" data-toggle="modal" data-target="#loginModal" style="background-color: #142DB2; color: white;">로그인 후 마이페이지를 확인할 수 있습니다.</a>
-            </div>
-            <div style="padding: 170px"></div>
-        </div>
-    </div>
-    {% endif %}
 {% endblock %}
